@@ -1,0 +1,10 @@
+.main-container{
+    display: flex;
+}
+
+.sidebar{
+    width: 40%;
+    background-color: rgb(187, 168, 168);
+    font-display: flex;
+    flex-direction: column;
+}
