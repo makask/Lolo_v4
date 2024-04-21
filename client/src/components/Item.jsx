@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import { AppContext } from "../context/AppContext";
 import { DateTime } from "luxon";
+import Category from "./Category";
+import uuid from "react-uuid";
+
 
 function Item({ id, title, link, date, name, categories }){
 
@@ -51,15 +54,22 @@ function Item({ id, title, link, date, name, categories }){
 
     //<h3>{title}</h3> 
     //<p>{link}</p>
-    //<p>{formatDate(date)}</p>
+    //<p>{formatDate(date)}</p> category._
     
     return(
         <div className="item-card">
             <p>{link}</p>
             {
-                
+                categories && categories.map(category => {
+                    return <Category 
+                        key={uuid()}
+                        id={uuid}
+                        category={category._}
+                    />
+                })
             }
            <p className="openModal" onClick={openArticleModal}>Open Modal ???</p>
+           <p>{formatDate(date)}</p>
            { modalOpen && <Modal data={modalData} setModalOpen={setModalOpen}/>}
         </div>
     )

@@ -29,6 +29,7 @@ function Main(){
             }).then(res => {
                 return res.json()
             }).then(articles => {
+                articles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
                 setArticles(articles);
             })
         }catch(err){
@@ -47,6 +48,7 @@ function Main(){
           }).then(res => {
             return res.json()
           }).then(articles => {
+            articles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
             setArticles(articles);
           });
         }catch(err){
