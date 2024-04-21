@@ -13,10 +13,27 @@ function Main(){
     const[newFeedUrl, setNewFeedUrl] = useState("");
     const[newFeedName, setNewFeedName] = useState("");
     
-    function getAllArticles(){
+    async function getAllArticles(){
+        const endpoints = [];
         feeds.forEach(feed => {
-
+            endpoints.push(feed.url); 
         })
+        
+        try{
+            await fetch(`http://localhost:7000/allarticles`,{
+                method: "POST",
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        urls: endpoints
+                    }) 
+            }).then(res => {
+                return res.json()
+            }).then(articles => {
+                setArticles(articles);
+            })
+        }catch(err){
+            console.error(err);
+        }
     }
 
     async function getArticles(url){
@@ -55,6 +72,7 @@ function Main(){
               localStorage.setItem(AppConstants.FEEDS_LOCAL_STORAGE_KEY, JSON.stringify(feeds));
               setFeeds(f => [...f, newFeed]);
             });
+            getAllArticles();
           }catch(err){
             console.error(err);
           }
@@ -87,7 +105,7 @@ function Main(){
        
         <div className="main-container">
             <div className="sidebar">
-                <h3>All Feeds</h3>
+                <h3 onClick={getAllArticles}>All Feeds</h3>
                 { 
                     feeds.map(feed => {
                         return <Feed 
@@ -110,6 +128,7 @@ function Main(){
                         link={item.link}
                         date = {item.pubDate}
                         title = {item.title}
+                        categories = {item.categories}
                 />})
             }
             </div>

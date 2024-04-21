@@ -5,7 +5,7 @@ import Modal from "./Modal";
 import { AppContext } from "../context/AppContext";
 import { DateTime } from "luxon";
 
-function Item({ id, title, link, date, name }){
+function Item({ id, title, link, date, name, categories }){
 
     const [modalOpen, setModalOpen] = useState(false);
     const [modalData, setModalData] = useState({});
@@ -48,12 +48,17 @@ function Item({ id, title, link, date, name }){
         getMercuryData();
         setModalOpen(true);
     }
+
+    //<h3>{title}</h3> 
+    //<p>{link}</p>
+    //<p>{formatDate(date)}</p>
     
     return(
         <div className="item-card">
-           <h3>{title}</h3> 
-           <p>{link}</p>
-           <p>{formatDate(date)}</p>
+            <p>{link}</p>
+            {
+                
+            }
            <p className="openModal" onClick={openArticleModal}>Open Modal ???</p>
            { modalOpen && <Modal data={modalData} setModalOpen={setModalOpen}/>}
         </div>

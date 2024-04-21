@@ -1,6 +1,6 @@
 import cors from "cors";
 import RSSParser from "rss-parser";
-import express from "express";
+import express, { response } from "express";
 import bodyParser from "body-parser";
 import { initialFeedProvider, feed, article  } from "./features/components/initalFeedProvider.js";
 
@@ -24,6 +24,32 @@ const parse = async url => {
     });
     return articles;
 }
+
+const parseFeed = async url => {
+    try{
+        const feed = await parser.parseURL(url);
+        return feed;
+    }catch(error){
+        console.error(`Error parsing ${url}`);
+    }
+}
+
+const fetchFeeds = async (urls) => {
+    const requests = urls.map(url => parseFeed(url));
+    try {
+      const responses = await Promise.all(requests);
+      const items = responses.flatMap(response => response.items);
+      return items;
+    } catch (error) {
+      console.error('Error during requests:', error);
+    }
+}
+
+app.post("/allarticles", async (req, res)=> {
+    const { urls } = req.body;
+    const allArticles = await fetchFeeds(urls);
+    res.send(allArticles);
+})
 
 app.get("/initial", async (req, res)=> {
     const initialFeed = await new initialFeedProvider().provide(feedURL);
