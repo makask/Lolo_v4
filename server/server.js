@@ -63,10 +63,10 @@ app.post("/articles", async (req, res)=> {
 });
 
 app.post("/add", async (req, res) => {
-    const{url, name } = req.body;
+    const{url, name, color } = req.body;
     try{
         var parsedFeed = await parser.parseURL(url);
-        const newFeed = new feed(name, url);
+        const newFeed = new feed(name, url, color);
         res.send(newFeed);
     }catch(err){
         return err;

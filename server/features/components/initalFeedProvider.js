@@ -2,10 +2,11 @@ import { v4 as uuidv4 } from 'uuid';
 import RSSParser from "rss-parser";
 
 class feed {
-    constructor(name, url){
+    constructor(name, url, color){
         this.name = name;
         this.url = url;
         this.id = uuidv4();
+        this.color = color;
         //this.articles = [];
     }
 
@@ -30,7 +31,7 @@ class article {
 
 class initialFeedProvider {
     async provide(feedUrl){
-        return new feed("raimoseero", feedUrl);
+        return new feed("raimoseero", feedUrl, "#87CEEB");
         /*return items.map(item => {
             const feedItem = item.item; 
             const feedName = new URL(feedItem.link).host;

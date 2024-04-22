@@ -1,15 +1,13 @@
 import React, { useState, useContext } from "react";
 import "./Item.css";
-import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import { AppContext } from "../context/AppContext";
-import { DateTime } from "luxon";
 import Category from "./Category";
 import uuid from "react-uuid";
 
+function Item({ id, title, link, date, name, categories, getAllArticles }){
 
-function Item({ id, title, link, date, name, categories }){
-
+    const { selectedCategory, setSelectedCategory } = useContext(AppContext);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalData, setModalData] = useState({});
     
@@ -54,19 +52,27 @@ function Item({ id, title, link, date, name, categories }){
 
     //<h3>{title}</h3> 
     //<p>{link}</p>
-    //<p>{formatDate(date)}</p> category._
     
     return(
         <div className="item-card">
             <p>{link}</p>
             {
-                categories && categories.map(category => {
+                /*categories && categories.map(category => {
                     return <Category 
                         key={uuid()}
                         id={uuid}
                         category={category._}
                     />
-                })
+                })*/
+                categories && (
+                    <Category 
+                        key={uuid()}
+                        id={uuid}
+                        category={categories[0]._}
+                        setSelectedCategory={setSelectedCategory}
+                        getAllArticles={getAllArticles}
+                    />
+                )
             }
            <p className="openModal" onClick={openArticleModal}>Open Modal ???</p>
            <p>{formatDate(date)}</p>

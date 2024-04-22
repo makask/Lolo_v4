@@ -1,13 +1,16 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { AppContext } from '../context/AppContext';
 
-function Category({category}) {
+function Category({ category, getAllArticles }) {
+
+  const { selectedCategory, setSelectedCategory } = useContext(AppContext);
 
   function handleClick(){
-    console.log(category);
+    setSelectedCategory(category);
   }
 
   return (
-    <p onClick={handleClick}>{category}</p>
+    <p style={{backgroundColor:"lightblue"}} onClick={handleClick}>{category}</p>
   )
 }
 

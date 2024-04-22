@@ -4,7 +4,7 @@ import Navbar from './components/Navbar';
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Main from './components/Main';
-import Article from './components/Article';
+
 import AppContextProvider from './context/AppContext';
 
 function App(){

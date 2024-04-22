@@ -6,6 +6,8 @@ export const AppContext = createContext(null);
 function AppContextProvider(props){
 
     const[defaultFeed, setDefaultFeed] = useState([]);
+    const[selectedFeedUrl, setSelectedFeedUrl] = useState(null);
+    const[selectedCategory, setSelectedCategory] = useState(null);
     const[feeds, setFeeds] = useState([]);
     
     async function fetchFeeds(){
@@ -26,7 +28,7 @@ function AppContextProvider(props){
         fetchFeeds();
     },[]);
 
-    const contextValue = { feeds, setFeeds }
+    const contextValue = { feeds, setFeeds, selectedFeedUrl, setSelectedFeedUrl, selectedCategory, setSelectedCategory }
 
     return <AppContext.Provider value={contextValue}>{props.children}</AppContext.Provider>
 }

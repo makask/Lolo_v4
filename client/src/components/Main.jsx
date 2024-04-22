@@ -3,22 +3,25 @@ import { AppContext } from "../context/AppContext";
 import Item from "./Item";
 import Feed from "./Feed";
 import "./Main.css";
-import { v4 as uuidv4 } from 'uuid';
+import uuid from "react-uuid";
 import AppConstants from "../../appConstants";
+import SelectedCategory from "./SelectedCategory";
 
 function Main(){
 
-    const { feeds, setFeeds } = useContext(AppContext);
+    const { feeds, setFeeds, selectedFeedUrl, setSelectedFeedUrl, selectedCategory, setSelectedCategory } = useContext(AppContext);
+
     const[articles, setArticles] = useState([]);
     const[newFeedUrl, setNewFeedUrl] = useState("");
     const[newFeedName, setNewFeedName] = useState("");
-    
+    const[color, setColor] = useState("#000000");
+ 
     async function getAllArticles(){
+        setSelectedFeedUrl(null);
         const endpoints = [];
         feeds.forEach(feed => {
             endpoints.push(feed.url); 
         })
-        
         try{
             await fetch(`http://localhost:7000/allarticles`,{
                 method: "POST",
@@ -29,8 +32,19 @@ function Main(){
             }).then(res => {
                 return res.json()
             }).then(articles => {
-                articles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
-                setArticles(articles);
+                if(selectedCategory===null){
+                    articles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+                    setArticles(articles);
+                }else{
+                    getRelevantArticles(selectedCategory)
+                    .then(relevantArticles => { 
+                        relevantArticles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+                        setArticles(relevantArticles);
+                    })
+                    .catch(error => {
+                        console.error("Error occurred:", error);
+                    });
+                }   
             })
         }catch(err){
             console.error(err);
@@ -46,6 +60,7 @@ function Main(){
                         url: url
                     }) 
           }).then(res => {
+            setSelectedFeedUrl(url);
             return res.json()
           }).then(articles => {
             articles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
@@ -64,7 +79,8 @@ function Main(){
                       headers: {'Content-Type': 'application/json'},
                       body: JSON.stringify({
                           url: newFeedUrl,
-                          name: newFeedName
+                          name: newFeedName,
+                          color: color
                       }) 
                     }).then(res => {
                         return res.json()
@@ -98,20 +114,34 @@ function Main(){
         setFeeds(feeds.filter(obj => obj.id !== id));
     }
 
+    function pickColor(event){
+        setColor(event.target.value);
+    }
+
+    async function getRelevantArticles(relevantCategory) {
+        return new Promise((resolve, reject) => {
+            const relevantArticles = articles.filter(article => {
+                return article.categories && article.categories.some(category => category._ === relevantCategory);
+            });
+            resolve(relevantArticles);
+        });
+    }
+
     useEffect(() => {
         getAllArticles();  
-    },[feeds]);
+    },[feeds, selectedCategory]);
     
     return(
-        
-       
         <div className="main-container">
+            {
+                selectedCategory && <SelectedCategory />
+            }
             <div className="sidebar">
                 <h3 onClick={getAllArticles}>All Feeds</h3>
                 { 
                     feeds.map(feed => {
                         return <Feed 
-                            key = {feed.id}
+                            key = {uuid()}
                             id = {feed.id}
                             name = {feed.name}
                             url = {feed.url}
@@ -125,19 +155,21 @@ function Main(){
             {
                 
                 articles.map((item, i) => {
-                return <Item 
-                        key={item.guid}
-                        link={item.link}
-                        date = {item.pubDate}
-                        title = {item.title}
-                        categories = {item.categories}
-                />})
+                    return <Item 
+                            key={item.guid}
+                            link={item.link}
+                            date = {item.pubDate}
+                            title = {item.title}
+                            categories = {item.categories}
+                            getAllArticles = {getAllArticles}
+                    />})
             }
             </div>
             <div>
                 <form>
                     <input type="text" placeholder="Name..." value={newFeedName} onChange={changeNewFeedName}></input>
                     <input type="text" placeholder="Feed url..." value={newFeedUrl} onChange={changeNewUrlValue}></input>
+                    <input type="color" value={color} onChange={pickColor}></input>
                     <button onClick={ addFeed }>Submit</button>
                 </form>
             </div>
