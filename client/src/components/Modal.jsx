@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Modal.css";
 
 function Modal({setModalOpen, data}) {
@@ -8,6 +8,12 @@ function Modal({setModalOpen, data}) {
     function stripHtmlTags(htmlString){
         return htmlString.replace(/<[^>]*>/g, ''); 
     }
+
+    useEffect(() => {
+        if (data && data.content) {
+          setCleanContent(stripHtmlTags(data.content));
+        }
+    }, [data]);
 
   return (
     <div className="modalBackground">
@@ -22,7 +28,7 @@ function Modal({setModalOpen, data}) {
                 <img src={data.lead_image_url} style={{"width":"400px"}}></img>
                 <p>The next page is awesome! You should move forward, you will enjoy it!</p>
             </div>
-            {stripHtmlTags(data.content)}
+            {cleanContent}
             <div className="footer">
                 <button>Delete???</button>
                 <button>Continue</button>
