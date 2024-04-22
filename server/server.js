@@ -73,16 +73,6 @@ app.post("/add", async (req, res) => {
     }
 });
 
-/*app.post("/", async (req, res) => {
-    const{url} = req.body;
-    try{
-        console.log(url);
-    }catch(err){
-        console.error(err);
-    }
-});*/
-
-
 app.post("/mercury", async (req, res) => {
     const{url} = req.body;
     try{

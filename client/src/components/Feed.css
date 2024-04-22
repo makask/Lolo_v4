@@ -1,0 +1,10 @@
+.feed-div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.feed-div h3:hover, .feed-div i:hover{
+    cursor: pointer;
+    opacity: 70%;
+}

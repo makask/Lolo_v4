@@ -1,5 +1,68 @@
-.card-container{
+:root {
+    --main-background-color: #bbe4e9;
+    --main-lightblue: #79c2d0;
+    --main-green: #53a8b6;
+    --main-blue:#5585b5;
+  }
+
+body{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: var(--main-background-color);
+    color:#223141;
+}
+
+/* Navbar */
+.navbar{
+    display: flex;
+    justify-content: center;
+}
+
+/* Main */
+
+.main-container{
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar{
+    background-color: #d5e7ec;
+    border: 5px solid var(--main-green);
+    font-display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 6px;
+}
+
+form, .form-fields {
     display: flex;
     flex-wrap: wrap;
-    gap:0.5rem;
+  }
+
+.article-container{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
+
+/* Item Card */
+.item-card{
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgb(213, 231, 236);
+    margin-left: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    max-width: 1000px;
+    border-radius: 8px;
+    border:5px solid var(--main-green);
+}
+
+.item-card-content{
+    padding: 2rem;
+    
+}
+
+.item-card:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+

@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../context/AppContext'
+import "./SelectedCategory.css"
 
 function SelectedCategory() {
 
@@ -10,13 +11,10 @@ function SelectedCategory() {
   }
 
   return (
-    <div>
-        <div>
-            <h3>Category:</h3>
+        <div className="selected-category-div">
             <h3>{selectedCategory}</h3>
-            <h3 onClick={closeCategory}>X</h3>
-            </div>
-    </div>
+            <i className='fa fa-trash-o' aria-hidden="true" onClick={closeCategory}></i>
+        </div>
   )
 }
 

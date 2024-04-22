@@ -63,6 +63,7 @@ function Main(){
             setSelectedFeedUrl(url);
             return res.json()
           }).then(articles => {
+            console.log(articles);
             articles.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
             setArticles(articles);
           });
@@ -133,11 +134,18 @@ function Main(){
     
     return(
         <div className="main-container">
+            <div className="sidebar">
             {
                 selectedCategory && <SelectedCategory />
             }
-            <div className="sidebar">
-                <h3 onClick={getAllArticles}>All Feeds</h3>
+            <div className="add-new-feed-div">
+                <form className="add-new-feed-form">
+                    <input type="text" placeholder="New feed name..." value={newFeedName} onChange={changeNewFeedName}></input>
+                    <input type="text" placeholder="New feed url..." value={newFeedUrl} onChange={changeNewUrlValue}></input>
+                    <button onClick={ addFeed }>Add</button>
+                </form>
+            </div>
+                <h3 className="title-all-feeds" onClick={getAllArticles}>All Feeds</h3>
                 { 
                     feeds.map(feed => {
                         return <Feed 
@@ -151,7 +159,7 @@ function Main(){
                     }) 
                 }
             </div>
-            <div className="card-container">
+            <div className="article-container">
             {
                 
                 articles.map((item, i) => {
@@ -161,17 +169,12 @@ function Main(){
                             date = {item.pubDate}
                             title = {item.title}
                             categories = {item.categories}
+                            description = {item.description}
+                            content = {item.content}
                             getAllArticles = {getAllArticles}
+                            author = {item.author}
                     />})
             }
-            </div>
-            <div>
-                <form>
-                    <input type="text" placeholder="Name..." value={newFeedName} onChange={changeNewFeedName}></input>
-                    <input type="text" placeholder="Feed url..." value={newFeedUrl} onChange={changeNewUrlValue}></input>
-                    <input type="color" value={color} onChange={pickColor}></input>
-                    <button onClick={ addFeed }>Submit</button>
-                </form>
             </div>
         </div>
     );

@@ -1,7 +1,8 @@
 import React, {useContext} from 'react'
 import { AppContext } from '../context/AppContext';
+import "./Category.css";
 
-function Category({ category, getAllArticles }) {
+function Category({ category="No category", getAllArticles }) {
 
   const { selectedCategory, setSelectedCategory } = useContext(AppContext);
 
@@ -10,7 +11,7 @@ function Category({ category, getAllArticles }) {
   }
 
   return (
-    <p style={{backgroundColor:"lightblue"}} onClick={handleClick}>{category}</p>
+    <button className="category-btn" onClick={handleClick}>{category}</button>
   )
 }
 

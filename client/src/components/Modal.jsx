@@ -18,20 +18,17 @@ function Modal({setModalOpen, data}) {
   return (
     <div className="modalBackground">
         <div className="modalContainer">
-            <div className="titleCloseBtn">
+            <div className="titleCloseBtn-div">
                 <button onClick={()=> setModalOpen(false)}> X </button>
             </div>
             <div className="title">
                 <h1>{data.title}</h1>
             </div>
-            <div className="body">
-                <img src={data.lead_image_url} style={{"width":"400px"}}></img>
-                <p>The next page is awesome! You should move forward, you will enjoy it!</p>
+            <div>
+                <img className="modalImage" src={data.lead_image_url}></img>
             </div>
-            {cleanContent}
-            <div className="footer">
-                <button>Delete???</button>
-                <button>Continue</button>
+            <div className="modalContent">
+                {cleanContent}
             </div>
         </div>
     </div>

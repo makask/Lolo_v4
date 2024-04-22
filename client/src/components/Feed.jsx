@@ -22,13 +22,10 @@ function Feed({ id, name, url, getArticles, removeFeed }) {
     getArticles(url);
   }
 
-  // <h3 onClick={()=>getArticles(url)}>{name}</h3>
-
   return (
-    <div>
+    <div className='feed-div'>
         <h3 onClick={()=>testFiltering(url)}>{name}</h3>
-        <h3 onClick={()=>removeFeed(JSON.parse(localStorage.getItem(AppConstants.FEEDS_LOCAL_STORAGE_KEY)), id)}>X</h3>
-        <button onClick={()=>test(id)}></button>
+        <i className='fa fa-trash-o' onClick={()=>removeFeed(JSON.parse(localStorage.getItem(AppConstants.FEEDS_LOCAL_STORAGE_KEY)), id)}></i>
     </div>
   )
 }

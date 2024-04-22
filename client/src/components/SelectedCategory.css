@@ -1,0 +1,10 @@
+.selected-category-div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.selected-category-div h3:hover, .selected-category-div i:hover{
+    opacity: 70%;
+    cursor: pointer;
+}
