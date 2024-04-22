@@ -13,27 +13,21 @@ function Item({ id, title, link, date, name, categories, getAllArticles }){
     
     async function postMercuryData(){
         try{
-            const data = await fetch(`http://localhost:7000/mercury`, {
+            await fetch(`http://localhost:7000/mercury`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({
                     url: link
                 })
-            });
-            getMercuryData();
+            }).then(res => {
+                return res.json();
+            }).then(data=>{
+                setModalData(data);
+            })
+            //getMercuryData();
             }catch(err){
                 console.error(err);
             }   
-    }
-
-    async function getMercuryData(){
-        try{
-            const response = await fetch(`http://localhost:7000/mercury`);
-            const data = await response.json();
-            setModalData(data);
-          }catch(err){
-            console.error(err);
-          }
     }
 
     function formatDate(date){
@@ -46,13 +40,9 @@ function Item({ id, title, link, date, name, categories, getAllArticles }){
 
     async function openArticleModal(){
         postMercuryData();
-        getMercuryData();
         setModalOpen(true);
     }
 
-    //<h3>{title}</h3> 
-    //<p>{link}</p>
-    
     return(
         <div className="item-card">
             <p>{link}</p>

@@ -73,21 +73,15 @@ app.post("/add", async (req, res) => {
     }
 });
 
-app.post("/", async (req, res) => {
+/*app.post("/", async (req, res) => {
     const{url} = req.body;
     try{
         console.log(url);
     }catch(err){
         console.error(err);
     }
-});
+});*/
 
-
-let parsedArticle = {};
-
-app.get("/mercury", async( req, res) => {
-    res.send(parsedArticle);
-})
 
 app.post("/mercury", async (req, res) => {
     const{url} = req.body;
@@ -100,13 +94,11 @@ app.post("/mercury", async (req, res) => {
                 body: JSON.stringify({ url: url})
             });
             const data = await response.json();
-            res.send(response);
-            parsedArticle = data;
+            res.send(data);
     }catch(err){
         console.error(err);
     }
 });
-
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}.`);
