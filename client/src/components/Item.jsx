@@ -22,7 +22,7 @@ function Item({
     
     async function postMercuryData(){
         try{
-            await fetch(`http://localhost:7000/mercury`, {
+            await fetch(`${import.meta.env.VITE_SERVERURL}/mercury`, {
                 method: "POST",
                 headers: { 'Content-Type': 'application/json'},
                 body: JSON.stringify({

@@ -23,7 +23,7 @@ function Main(){
             endpoints.push(feed.url); 
         })
         try{
-            await fetch(`http://localhost:7000/allarticles`,{
+            await fetch(`${import.meta.env.VITE_SERVERURL}/allarticles`,{
                 method: "POST",
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
@@ -53,7 +53,7 @@ function Main(){
 
     async function getArticles(url){
         try{
-          await fetch(`http://localhost:7000/articles`, {
+          await fetch(`${import.meta.env.VITE_SERVERURL}/articles`, {
             method: "POST",
                     headers: {'Content-Type': 'application/json'},
                     body: JSON.stringify({
@@ -75,7 +75,7 @@ function Main(){
     async function addFeed(event){
         event.preventDefault();
         try{
-            await fetch(`http://localhost:7000/add`, {
+            await fetch(`${import.meta.env.VITE_SERVERURL}/add`, {
               method: "POST",
                       headers: {'Content-Type': 'application/json'},
                       body: JSON.stringify({
@@ -149,7 +149,7 @@ function Main(){
             </div>
                 <div className="all-feeds-div">
                     <h3 className="title-all-feeds" onClick={getAllArticles}>All Feeds</h3>
-                    <i class="fa fa-rss" onClick={getAllArticles} aria-hidden="true"></i>
+                    <i className="fa fa-rss" onClick={getAllArticles} aria-hidden="true"></i>
                 </div>
                 { 
                     feeds.map(feed => {

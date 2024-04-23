@@ -12,7 +12,7 @@ function AppContextProvider(props){
     async function fetchFeeds(){
         try{
           if(localStorage.getItem(AppConstants.FEEDS_LOCAL_STORAGE_KEY) === null){
-            const response = await fetch(`http://localhost:7000/initial`);
+            const response = await fetch(`${import.meta.env.VITE_SERVERURL}/initial`);
             const defaultFeed = await response.json();
             localStorage.setItem(AppConstants.FEEDS_LOCAL_STORAGE_KEY, JSON.stringify([defaultFeed]));
           }
