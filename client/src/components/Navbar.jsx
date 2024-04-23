@@ -5,7 +5,8 @@ function Navbar(){
 
     return(
         <div className="navbar">
-            <h1>Lolo v4</h1>
+            <i class="fa fa-linux fa-3x" aria-hidden="true"></i>
+            <h1>Lolo</h1>
         </div>
     )
 }

@@ -4,6 +4,10 @@
     justify-content: space-between;
 }
 
+.feed-div h3{
+    text-wrap: wrap;
+}
+
 .feed-div h3:hover, .feed-div i:hover{
     cursor: pointer;
     opacity: 70%;

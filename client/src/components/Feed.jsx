@@ -17,14 +17,14 @@ function Feed({ id, name, url, getArticles, removeFeed }) {
     return feedObject ? feedObject.color : "";
   }
 
-  async function testFiltering(url){
+  async function filterByGategory(url){
     setSelectedFeedUrl(url);
     getArticles(url);
   }
 
   return (
     <div className='feed-div'>
-        <h3 onClick={()=>testFiltering(url)}>{name}</h3>
+        <h3 onClick={()=>filterByGategory(url)}>{name}</h3>
         <i className='fa fa-trash-o' onClick={()=>removeFeed(JSON.parse(localStorage.getItem(AppConstants.FEEDS_LOCAL_STORAGE_KEY)), id)}></i>
     </div>
   )

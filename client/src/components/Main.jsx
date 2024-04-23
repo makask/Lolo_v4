@@ -92,6 +92,8 @@ function Main(){
               setFeeds(f => [...f, newFeed]);
             });
             getAllArticles();
+            setNewFeedName("");
+            setNewFeedUrl("");
           }catch(err){
             console.error(err);
           }
@@ -145,7 +147,10 @@ function Main(){
                     <button onClick={ addFeed }>Add</button>
                 </form>
             </div>
-                <h3 className="title-all-feeds" onClick={getAllArticles}>All Feeds</h3>
+                <div className="all-feeds-div">
+                    <h3 className="title-all-feeds" onClick={getAllArticles}>All Feeds</h3>
+                    <i class="fa fa-rss" onClick={getAllArticles} aria-hidden="true"></i>
+                </div>
                 { 
                     feeds.map(feed => {
                         return <Feed 

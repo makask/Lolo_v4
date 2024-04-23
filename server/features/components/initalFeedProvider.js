@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import RSSParser from "rss-parser";
 
 class feed {
     constructor(name, url, color){
@@ -7,12 +6,7 @@ class feed {
         this.url = url;
         this.id = uuidv4();
         this.color = color;
-        //this.articles = [];
     }
-
-    /*addArticle(article){
-        this.articles.push(article);
-    }*/
 }
 
 class article {
@@ -31,14 +25,7 @@ class article {
 
 class initialFeedProvider {
     async provide(feedUrl){
-        return new feed("raimoseero", feedUrl, "#87CEEB");
-        /*return items.map(item => {
-            const feedItem = item.item; 
-            const feedName = new URL(feedItem.link).host;
-            const newFeed = new feed(feedName, feedItem.categories);
-            newFeed.addArticle(new article(feedItem.author, feedItem.content, feedItem.creator, feedItem.link, feedItem.isoDate, feedItem.pubDate, feedItem.title, feedItem.categories));
-            return newFeed;
-        });*/
+        return new feed("Raimo Seero", feedUrl, "#87CEEB");
     }
 }
 

@@ -4,8 +4,7 @@ import AppConstants from "../../appConstants";
 export const AppContext = createContext(null);
 
 function AppContextProvider(props){
-
-    const[defaultFeed, setDefaultFeed] = useState([]);
+    
     const[selectedFeedUrl, setSelectedFeedUrl] = useState(null);
     const[selectedCategory, setSelectedCategory] = useState(null);
     const[feeds, setFeeds] = useState([]);
