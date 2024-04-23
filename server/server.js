@@ -5,7 +5,6 @@ import bodyParser from "body-parser";
 import { initialFeedProvider, feed, article  } from "./features/components/initalFeedProvider.js";
 
 const feedURL = "https://flipboard.com/@raimoseero/feed-nii8kd0sz.rss";
-//const feedURL = "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml";
 
 const port = 7000;
 let app = express();
